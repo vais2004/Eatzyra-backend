@@ -12,7 +12,7 @@ app.use(cors(corsOptions));
 
 const { initializeDatabase } = require("./db/db.connect");
 
-const { Category, FoodItem } = require("./models/food.models"); 
+const { Category, FoodItem } = require("./models/food.models");
 
 app.use(express.json());
 
@@ -31,8 +31,7 @@ app.get("/api/fooditems", async (req, res) => {
   }
 });
 
-
-app.use('/api',require('./Routes/CreateUser'))
+app.use("/api", require("./Routes/CreateUser"));
 
 const PORT = 5000;
 app.listen(PORT, () => {
