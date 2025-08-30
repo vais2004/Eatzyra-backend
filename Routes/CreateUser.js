@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const jwtSecret= "thisIsMyJwtSecretKey123456"
+const jwtSecret = "thisIsMyJwtSecretKey123456";
 
 router.post("/createuser", async (req, res) => {
   try {
@@ -43,15 +43,15 @@ router.post("/loginuser", async (req, res) => {
       return res.status(400).json({ error: "Incorrect password" });
     }
 
-    const data ={
-      user:{
-        id:userData.id
-      }
-    }
+    const data = {
+      user: {
+        id: userData.id,
+      },
+    };
 
-    const authToken=jwt.sign(data, jwtSecret)
+    const authToken = jwt.sign(data, jwtSecret);
 
-    res.json({ success: true, user: userData , authToken:authToken});
+    res.json({ success: true, authToken: authToken });
   } catch (error) {
     console.error("❌ Error logging in:", error.message);
     res.json({ success: false, error: error.message });
