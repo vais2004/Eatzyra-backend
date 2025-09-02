@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
   res.send("Hello, Express!");
 });
 
-app.get("/api/fooditems", async (req, res) => {
+app.get("/api/food-data", async (req, res) => {
   try {
     const foodItems = await FoodItem.find();
     res.status(200).json(foodItems);
@@ -32,6 +32,7 @@ app.get("/api/fooditems", async (req, res) => {
 });
 
 app.use("/api", require("./Routes/CreateUser"));
+app.use('/api', require("./Routes/DisplayData"))
 
 const PORT = 5000;
 app.listen(PORT, () => {
