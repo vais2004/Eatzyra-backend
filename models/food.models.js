@@ -18,6 +18,7 @@ const FoodItemSchema = new mongoose.Schema(
     img: { type: String, required: true },
     options: [
       {
+        _id: false,
         half: { type: String },
         full: { type: String },
         regular: { type: String },
