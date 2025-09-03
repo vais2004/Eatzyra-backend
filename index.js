@@ -31,6 +31,19 @@ app.get("/api/food-data", async (req, res) => {
   }
 });
 
+app.get("/api/cleanup-options", async (req, res) => {
+  try {
+    await FoodItem.updateMany(
+      {},
+      { $unset: { "options.$[]->_id": "" } }
+    );
+    res.json({ message: "✅ Cleaned up _id inside options" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "❌ Error cleaning data", error: err });
+  }
+});
+
 app.use("/api", require("./Routes/CreateUser"));
 app.use('/api', require("./Routes/DisplayData"))
 
