@@ -5,17 +5,23 @@ const removeOptionIds = async () => {
   try {
     await initializeDatabase();
 
-    // Remove `_id` from each object inside `options` array
-    const result = await FoodItem.updateMany(
-      {},
-      { $unset: { "options.$[elem]._id": "" } },
-      { arrayFilters: [{ "elem._id": { $exists: true } }] }
-    );
+    // Fetch all documents
+    const foodItems = await FoodItem.find({});
 
-    console.log(`✅ Removed _id from options in ${result.modifiedCount} documents`);
+    for (const item of foodItems) {
+      // Check if any option has _id
+      const hasOptionId = item.options.some(opt => opt._id);
+      if (hasOptionId) {
+        // Remove _id from each option
+        item.options = item.options.map(({ _id, ...rest }) => rest);
+        await item.save(); // Save the cleaned document
+      }
+    }
+
+    console.log("✅ Removed _id from options in all documents");
     process.exit();
-  } catch (error) {
-    console.error("❌ Error cleaning up:", error);
+  } catch (err) {
+    console.error("❌ Error cleaning up:", err);
     process.exit(1);
   }
 };
