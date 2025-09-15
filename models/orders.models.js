@@ -12,3 +12,5 @@ const OrderSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+module.exports = mongoose.model("Order", OrderSchema); // Capitalized model name
