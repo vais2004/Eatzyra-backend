@@ -1,16 +1,11 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
 
 const OrderSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  order_data: {
-    type: Array,
-    required: true,
-  },
+  email: { type: String, required: true },
+  order_data: { type: Array, required: true },
+  order_date: { type: String },
 });
 
-module.exports = mongoose.model("Order", OrderSchema); // Capitalized model name
+const Order = mongoose.model("Order", OrderSchema);
+
+module.exports = Order; // export model directly
