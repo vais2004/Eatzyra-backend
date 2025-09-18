@@ -36,7 +36,6 @@
 
 // module.exports = router;
 
-
 const express = require("express");
 const router = express.Router();
 const Order = require("../models/orders.models");
@@ -47,7 +46,9 @@ router.post("/order-data", async (req, res) => {
     let { order_data, email, order_date } = req.body;
 
     if (!order_data || !email) {
-      return res.status(400).json({ success: false, error: "Missing order data or email" });
+      return res
+        .status(400)
+        .json({ success: false, error: "Missing order data or email" });
     }
 
     let existingOrder = await Order.findOne({ email });
@@ -61,13 +62,26 @@ router.post("/order-data", async (req, res) => {
       return res.json({ success: true, message: "New order created" });
     } else {
       // Update existing order by pushing new items
-      existingOrder.order_data.push([{ Order_date: order_date }, ...order_data]); // ✅ nested correctly
+      existingOrder.order_data.push([
+        { Order_date: order_date },
+        ...order_data,
+      ]); // ✅ nested correctly
       await existingOrder.save();
 
       return res.json({ success: true, message: "Order updated" });
     }
   } catch (error) {
     console.error("Error saving order:", error.message);
+    return res.status(500).json({ success: false, error: "Server Error" });
+  }
+});
+
+router.post("/my-order-data", async (req, res) => {
+  try {
+    let mydata = await Order.findOne({ email: req.body.email });
+
+    res.json({ orderData: mydata });
+  } catch (error) {
     return res.status(500).json({ success: false, error: "Server Error" });
   }
 });
