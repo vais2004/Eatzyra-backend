@@ -9,21 +9,21 @@ router.post("/createuser", async (req, res) => {
   try {
     console.log("👉 Received body:", req.body);
 
-    // Generate salt and hash password
+    // generate salt and hash password
     const salt = await bcrypt.genSalt(10);
     const securePassword = await bcrypt.hash(req.body.password, salt);
 
-    // Save user with hashed password
+    // save user with hashed password
     const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
-      password: securePassword, // save hashed password
+      password: securePassword,
       location: req.body.location,
     });
 
     res.json({ success: true, user: newUser });
   } catch (error) {
-    console.error("❌ Error creating user:", error.message);
+    console.error("Error creating user:", error.message);
     res.json({ success: false, error: error.message });
   }
 });
@@ -37,7 +37,7 @@ router.post("/loginuser", async (req, res) => {
       return res.status(400).json({ error: "Try logging with correct email" });
     }
 
-    // ✅ Correct password comparison
+    // correct password comparison
     const passwordMatch = await bcrypt.compare(password, userData.password);
     if (!passwordMatch) {
       return res.status(400).json({ error: "Incorrect password" });
@@ -53,7 +53,7 @@ router.post("/loginuser", async (req, res) => {
 
     res.json({ success: true, authToken: authToken });
   } catch (error) {
-    console.error("❌ Error logging in:", error.message);
+    console.error("Error logging in:", error.message);
     res.json({ success: false, error: error.message });
   }
 });

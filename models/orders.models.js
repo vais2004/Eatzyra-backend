@@ -8,4 +8,4 @@ const OrderSchema = new mongoose.Schema({
 
 const Order = mongoose.model("Order", OrderSchema);
 
-module.exports = Order; // export model directly
+module.exports = Order; 

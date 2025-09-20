@@ -13,7 +13,7 @@ const UserSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true, // optional but recommended to avoid duplicate users
+    unique: true,
   },
   password: {
     type: String,
@@ -21,8 +21,8 @@ const UserSchema = new Schema({
   },
   date: {
     type: Date,
-    default: Date.now, // stores the creation date
+    default: Date.now,
   },
 });
 
-module.exports = mongoose.model("User", UserSchema); // Capitalized model name
+module.exports = mongoose.model("User", UserSchema);

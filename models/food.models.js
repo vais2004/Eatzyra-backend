@@ -8,7 +8,6 @@ const CategorySchema = new mongoose.Schema({
   },
 });
 
-// ✅ Define sub-schema for options
 const OptionSchema = new mongoose.Schema(
   {
     half: { type: String },
@@ -17,7 +16,7 @@ const OptionSchema = new mongoose.Schema(
     medium: { type: String },
     large: { type: String },
   },
-  { _id: false } // 👈 this disables _id for each option
+  { _id: false }
 );
 
 const FoodItemSchema = new mongoose.Schema(
@@ -28,7 +27,7 @@ const FoodItemSchema = new mongoose.Schema(
     },
     name: { type: String, required: true },
     img: { type: String, required: true },
-    options: [OptionSchema], // ✅ use sub-schema
+    options: [OptionSchema],
     description: { type: String, required: true },
   },
   { timestamps: true }
