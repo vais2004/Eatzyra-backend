@@ -14,51 +14,22 @@ const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
   email: { type: String, required: true },
-
-  // Food items ordered
-  order_data: {
-    type: [
-      {
-        id: { type: String, required: true },
-        name: { type: String, required: true },
-        quantity: { type: Number, required: true },
-        size: { type: String },
-        price: { type: Number, required: true },
-        img: { type: String },
-      },
-    ],
-    required: true,
-  },
-
-  order_date: { type: Date, default: Date.now },
-
-  // Delivery address
-  address: {
-    fullName: { type: String, required: true },
-    mobile: { type: String, required: true },
-    house: { type: String, required: true },
-    area: { type: String, required: true },
-    town: { type: String, required: true },
-    pincode: { type: String, required: true },
-    state: { type: String },
-  },
-
-  // Payment & pricing
+  order_data: { type: Array, required: true },
   final_price: { type: Number, required: true },
-  paymentMethod: {
-    type: String,
-    enum: ["COD", "UPI", "Card"],
-    required: true,
+  paymentMethod: { type: String, enum: ["COD", "UPI", "Card"], required: true },
+  address: {
+    fullName: String,
+    mobile: String,
+    house: String,
+    area: String,
+    town: String,
+    pincode: String,
+    state: String,
+    isDefault: Boolean,
   },
-
-  // Order tracking
-  status: {
-    type: String,
-    enum: ["Pending", "Confirmed", "Out for Delivery", "Delivered", "Cancelled"],
-    default: "Pending",
-  },
+  order_date: { type: Date, default: Date.now },
+  status: { type: String, default: "Pending" },
 });
 
-const Order = mongoose.model("Order", OrderSchema);
+module.exports = mongoose.model("Order", OrderSchema);
 
-module.exports = Order;
