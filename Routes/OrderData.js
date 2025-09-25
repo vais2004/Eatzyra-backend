@@ -76,9 +76,9 @@ router.post("/order-data", async (req, res) => {
     await newOrder.save();
     res.status(201).json({ success: true, message: "Order placed successfully", order: newOrder });
   } catch (error) {
-    console.error("Error saving order:", error.message);
-    res.status(500).json({ success: false, error: "Server Error" });
-  }
+     console.error("Error saving order - Full Error:", error);
+    console.error("Error Stack:", error.stack);
+    res.status(500).json({ success: false, error: error.message });}
 });
 
 // ✅ Fetch all orders of a user

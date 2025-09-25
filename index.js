@@ -22,10 +22,24 @@ app.get("/", (req, res) => {
   res.send("Hello, Express!");
 });
 
+// app.get("/api/food-data", async (req, res) => {
+//   try {
+//     const foodItems = await FoodItem.find();
+//     res.status(200).json(foodItems);
+//   } catch (err) {
+//     res.status(500).json({ message: "Error fetching food items", error: err });
+//   }
+// });
+
 app.get("/api/food-data", async (req, res) => {
   try {
     const foodItems = await FoodItem.find();
-    res.status(200).json(foodItems);
+    const categories = await Category.find(); // Add this line
+    
+    res.status(200).json({
+      foodItems: foodItems,
+      categories: categories // Include categories in response
+    });
   } catch (err) {
     res.status(500).json({ message: "Error fetching food items", error: err });
   }
