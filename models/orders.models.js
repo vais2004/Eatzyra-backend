@@ -9,11 +9,10 @@
 // const Order = mongoose.model("Order", OrderSchema);
 
 // module.exports = Order; 
-
 const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
-  email: { type: String, required: true },
+  email: { type: String, required: true }, // Remove unique: true if it exists
   order_data: { type: Array, required: true },
   final_price: { type: Number, required: true },
   paymentMethod: { type: String, enum: ["COD", "UPI", "Card"], required: true },
@@ -32,4 +31,3 @@ const OrderSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("Order", OrderSchema);
-
