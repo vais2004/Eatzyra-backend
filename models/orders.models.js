@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const OrderSchema = new mongoose.Schema({
-  email: { type: String, required: true }, // removed unique
+  email: { type: String, required: true }, 
   order_data: { type: Array, required: true },
   final_price: { type: Number, required: true },
   paymentMethod: { type: String, enum: ["COD", "UPI", "Card"], required: true },
