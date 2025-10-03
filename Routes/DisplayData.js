@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { Category, FoodItem } = require("../models/food.models");
 
-router.post("/food-data", async (req, res) => {
+router.get("/food-data", async (req, res) => {
   try {
     const foodItems = await FoodItem.find({});
     const categories = await Category.find({});
