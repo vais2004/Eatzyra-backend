@@ -18,4 +18,18 @@ router.get("/food-data", async (req, res) => {
   }
 });
 
+router.get("/food-data/:id", async (req, res) => {
+  try {
+    const foodItem = await FoodItem.findById(req.params.id);
+
+    if (!foodItem) {
+      return res.status(404).json({ msg: "Food itemnot found" });
+    }
+    res.json(foodItem);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("server error");
+  }
+});
+
 module.exports = router;
