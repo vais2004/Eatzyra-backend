@@ -36,19 +36,40 @@ router.post("/order-data", async (req, res) => {
 });
 
 // fetch all orders of a user
+// router.post("/my-order-data", async (req, res) => {
+//   try {
+//     const { email } = req.body;
+//     if (!email) {
+//       return res.status(400).json({ success: false, error: "Email required" });
+//     }
+
+//     const myOrders = await Order.find({ email }).sort({ order_date: -1 });
+//     res.json({ success: true, orders: myOrders });
+//   } catch (error) {
+//     console.error("Error fetching orders:", error.message);
+//     res.status(500).json({ success: false, error: "Server Error" });
+//   }
+// });
 router.post("/my-order-data", async (req, res) => {
   try {
     const { email } = req.body;
+
+    console.log("Incoming email:", email); // ✅ Debug log
+
     if (!email) {
       return res.status(400).json({ success: false, error: "Email required" });
     }
 
     const myOrders = await Order.find({ email }).sort({ order_date: -1 });
+
+    console.log("Fetched Orders:", myOrders); // ✅ Debug log
+
     res.json({ success: true, orders: myOrders });
   } catch (error) {
-    console.error("Error fetching orders:", error.message);
-    res.status(500).json({ success: false, error: "Server Error" });
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ success: false, error: error.message });
   }
 });
+
 
 module.exports = router;
