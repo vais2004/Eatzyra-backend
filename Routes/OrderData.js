@@ -52,7 +52,9 @@ router.post("/order-data", async (req, res) => {
 // });
 router.post("/my-order-data", async (req, res) => {
   try {
+    console.log("📩 Request body:", req.body);
     const { email } = req.body;
+    console.log("📧 Email received:", email);
 
     console.log("Incoming email:", email); // ✅ Debug log
 
@@ -70,6 +72,5 @@ router.post("/my-order-data", async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
-
 
 module.exports = router;
