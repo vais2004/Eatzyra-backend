@@ -29,7 +29,7 @@ const FoodItemSchema = new mongoose.Schema(
     img: { type: String, required: true },
     options: [OptionSchema],
     description: { type: String, required: true },
-  foodType: { type: String, enum: ["veg", "non-veg"], required: true } 
+    foodType: { type: String, enum: ["veg", "non-veg"], required: true },
   },
   { timestamps: true }
 );
