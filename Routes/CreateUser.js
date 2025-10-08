@@ -9,6 +9,15 @@ router.post("/createuser", async (req, res) => {
   try {
     console.log("👉 Received body:", req.body);
 
+    const existingUser = await User.findOne({ email: req.body.email });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "This email is already registered.  Please use another email or login.",
+      });
+    }
+
     // generate salt and hash password
     const salt = await bcrypt.genSalt(10);
     const securePassword = await bcrypt.hash(req.body.password, salt);
@@ -21,7 +30,10 @@ router.post("/createuser", async (req, res) => {
       location: req.body.location,
     });
 
-    res.json({ success: true, user: newUser });
+    res.json({
+      success: true,
+      message: "User registered successfully! You can now login.",
+    });
   } catch (error) {
     console.error("Error creating user:", error.message);
     res.json({ success: false, error: error.message });
