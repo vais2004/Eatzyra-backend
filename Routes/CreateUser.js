@@ -27,7 +27,6 @@ router.post("/createuser", async (req, res) => {
       name: req.body.name,
       email: req.body.email,
       password: securePassword,
-      location: req.body.location,
     });
 
     res.json({
