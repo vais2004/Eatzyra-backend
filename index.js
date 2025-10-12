@@ -14,6 +14,8 @@ const { initializeDatabase } = require("./db/db.connect");
 
 const { Category, FoodItem } = require("./models/food.models");
 
+const { Address } = require("./models/address.models");
+
 app.use(express.json());
 
 initializeDatabase();
@@ -35,6 +37,7 @@ app.get("/", (req, res) => {
 app.use("/api", require("./Routes/CreateUser"));
 app.use("/api", require("./Routes/DisplayData"));
 app.use("/api", require("./Routes/OrderData"));
+app.use("/api", require("./Routes/Address"));
 
 const PORT = 5000;
 app.listen(PORT, () => {
