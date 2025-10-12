@@ -80,10 +80,20 @@ router.delete("/delete-address/:id", async (req, res) => {
   }
 });
 
-router.post("/set-default", async(req,res)=>{
-    try{
-
-    }catch(error){
-        
+router.post("/set-default", async (req, res) => {
+  try {
+    const { userEmail, id } = req.body;
+    if (!userEmail || !id) {
+      res.status(400).json({ error: "missing details" });
     }
-})
+
+    await Address.updateMany({ userEmail }, { $set: { isDefault: false } });
+    await Address.findByIdAndUpdate(id, { isDefault: true });
+
+    res.json({ message: "Default address updated successfully" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+module.exports = router;
