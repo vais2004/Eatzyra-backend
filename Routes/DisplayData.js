@@ -13,4 +13,20 @@ router.get("/food-data", async (req, res) => {
   }
 });
 
+router.get("/food-data/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const foodItem = await FoodItem.findById(id);
+
+    if (!foodItem) {
+      return res.status(404).json({ success: false, message: "Food item not found" });
+    }
+
+    res.json(foodItem);
+  } catch (err) {
+    console.error("Error fetching food item:", err.message);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 module.exports = router;
