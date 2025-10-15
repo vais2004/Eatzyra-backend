@@ -37,11 +37,11 @@ router.post("/order-data", async (req, res) => {
 
 router.post("/my-order-data", async (req, res) => {
   try {
-    //console.log("📩 Request body:", req.body);
+    console.log("📩 Request body:", req.body);
     const { email } = req.body;
     //console.log("📧 Email received:", email);
 
-    //console.log("Incoming email:", email); // ✅ Debug log
+  console.log("Incoming email:", email); // ✅ Debug log
 
     if (!email) {
       return res.status(400).json({ success: false, error: "Email required" });
@@ -49,7 +49,7 @@ router.post("/my-order-data", async (req, res) => {
 
     const myOrders = await Order.find({ email }).sort({ order_date: -1 });
 
-    // console.log("Fetched Orders:", myOrders); // ✅ Debug log
+     console.log("Fetched Orders:", myOrders); // ✅ Debug log
 
     res.json({ success: true, orders: myOrders });
   } catch (error) {

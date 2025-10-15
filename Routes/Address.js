@@ -58,14 +58,17 @@ router.post("/add-address", async (req, res) => {
 
 router.post("/get-addresses", async (req, res) => {
   try {
+     console.log(" Received get-addresses:", req.body); 
     const { userEmail } = req.body;
     if (!userEmail) {
-      res.status(400).json({ error: "email required" });
+     return res.status(400).json({ error: "email required" });
     }
 
     const addresses = await Address.find({ userEmail });
+     console.log("Found addresses:", addresses);
     res.json({ addresses });
   } catch (error) {
+     console.error("❌ Error in get-addresses:", error);
     res.status(500).json({ error: error.message });
   }
 });
