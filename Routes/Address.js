@@ -49,7 +49,11 @@ router.post("/add-address", async (req, res) => {
     await newAddress.save();
     res
       .status(201)
-      .json({ message: "Address added successfully", address: newAddress });
+      .json({
+        success: true,
+        message: "Address added successfully",
+        address: newAddress,
+      });
   } catch (error) {
     console.error("Error adding address:", error);
     res.status(500).json({ error: error.message });
